@@ -57,7 +57,7 @@ module "bastion" {
 
   env = "dev"
 
-  public_subnets = module.vpc.public_subnet_ids
+  public_subnets = module.vpc.public_subnets
 
   bastion_sg_id = module.security_groups.bastion_sg_id
 
