@@ -38,9 +38,10 @@ module "iam" {
   env = "dev"
 }
 
-module "security-groups" {
-  source = "../../infra-modules/security-groups"
+module "security_groups" {
+  source = "../../infra-modules/security_groups"
 
   env    = "dev"
+
   vpc_id = module.vpc.vpc_id
 }
