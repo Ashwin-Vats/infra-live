@@ -38,7 +38,7 @@ module "iam" {
   env = "dev"
 }
 
-module "security_groups" {
+module "security-groups" {
   source = "../../infra-modules/security-groups"
 
   env    = "dev"
