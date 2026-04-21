@@ -51,3 +51,15 @@ module "kms" {
 
   env = "dev"
 }
+
+module "bastion" {
+  source = "../../infra-modules/bastion"
+
+  env = "dev"
+
+  public_subnets = module.vpc.public_subnet_ids
+
+  bastion_sg_id = module.security_groups.bastion_sg_id
+
+  key_name = "dev-bastion-key"
+}
