@@ -31,3 +31,9 @@ module "vpc" {
     "10.0.13.0/24"
   ]
 }
+
+module "iam" {
+  source = "../../infra-modules/iam"
+
+  env = "dev"
+}
