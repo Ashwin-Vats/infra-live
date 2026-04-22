@@ -72,7 +72,7 @@ module "kops_s3" {
 
   env = "dev"
 
-  account_id = data.aws_caller_identity.current.account_id
+  account_id = "d125788629837"
 
   region = "ap-south-1"
 
