@@ -93,7 +93,7 @@ module "kops_oidc" {
 
   env = "dev"
 
-  cluster_name = "kops.dev.corp.example.internal"
+  cluster_name = var.cluster_name
 }
 
 #########################################
@@ -105,7 +105,7 @@ module "cluster_iam" {
 
   env = "dev"
 
-  cluster_name     = "kops.dev.corp.example.internal"
+  cluster_name     = var.cluster_name
   oidc_provider_arn = module.kops_oidc.oidc_provider_arn
   oidc_provider_url = module.kops_oidc.oidc_provider_url
 }
