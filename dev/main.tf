@@ -50,6 +50,8 @@ module "kms" {
   source = "../../infra-modules/kms"
 
   env = "dev"
+  account_id = data.aws_caller_identity.current.account_id
+
 }
 
 module "bastion" {
@@ -62,4 +64,17 @@ module "bastion" {
   bastion_sg_id = module.security_groups.bastion_sg_id
 
   key_name = "dev-bastion-key"
+}
+
+
+module "kops_s3" {
+  source = "../../infra-modules/kops-s3"
+
+  env = "dev"
+
+  account_id = data.aws_caller_identity.current.account_id
+
+  region = "ap-south-1"
+
+  kms_key_arn = module.kms.kms_key_arn
 }
