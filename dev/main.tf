@@ -88,27 +88,32 @@ module "kops_s3" {
 # }
 
 
-module "kops_oidc" {
-  source = "../../infra-modules/kops-oidc"
+# module "kops_oidc" {
+#   source = "../../infra-modules/kops-oidc"
 
-  env = "dev"
+#   env = "dev"
 
-  cluster_name = var.cluster_name
-}
+#   cluster_name = var.cluster_name
+# }
+
+# Temporary: Comment out to avoid OIDC creation before cluster exists
+# Uncomment after kOps cluster creation
 
 #########################################
 # Cluster IAM
 #########################################
 
-module "cluster_iam" {
-  source = "../../infra-modules/cluster-iam"
+# module "cluster_iam" {
+#   source = "../../infra-modules/cluster-iam"
 
-  env = "dev"
+#   env = "dev"
 
-  cluster_name     = var.cluster_name
-  oidc_provider_arn = module.kops_oidc.oidc_provider_arn
-  oidc_provider_url = module.kops_oidc.oidc_provider_url
-}
+#   cluster_name     = var.cluster_name
+#   oidc_provider_arn = module.kops_oidc.oidc_provider_arn
+#   oidc_provider_url = module.kops_oidc.oidc_provider_url
+# }
+
+# Temporary: Comment out due to OIDC dependency
 
 #########################################
 # Node IAM
@@ -124,28 +129,32 @@ module "node_iam" {
 # ArgoCD IAM
 #########################################
 
-module "argocd_iam" {
+# module "argocd_iam" {
 
-  source = "../../infra-modules/argocd-iam"
-  env = "dev"
-  oidc_provider_arn =    module.kops_oidc.oidc_provider_arn
+#   source = "../../infra-modules/argocd-iam"
+#   env = "dev"
+#   oidc_provider_arn =    module.kops_oidc.oidc_provider_arn
 
-  oidc_provider_url =    module.kops_oidc.oidc_provider_url
-}
+#   oidc_provider_url =    module.kops_oidc.oidc_provider_url
+# }
+
+# Temporary: Comment out due to OIDC dependency
 
 #########################################
 # Addons IRSA
 #########################################
 
-module "addons_irsa" {
-  source = "../../infra-modules/addons-irsa"
+# module "addons_irsa" {
+#   source = "../../infra-modules/addons-irsa"
 
-  env = "dev"
+#   env = "dev"
 
-  oidc_provider_arn =    module.kops_oidc.oidc_provider_arn
+#   oidc_provider_arn =    module.kops_oidc.oidc_provider_arn
 
-  oidc_provider_url =    module.kops_oidc.oidc_provider_url
-}
+#   oidc_provider_url =    module.kops_oidc.oidc_provider_url
+# }
+
+# Temporary: Comment out due to OIDC dependency
 
 #########################################
 # ECR
