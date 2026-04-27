@@ -35,13 +35,15 @@ module "vpc" {
 module "iam" {
   source = "../../infra-modules/iam"
 
-  env = "dev"
+  env          = "dev"
+  account_id   = "d125788629837"
+  cluster_name = var.cluster_name
 }
 
 module "security_groups" {
   source = "../../infra-modules/security_groups"
 
-  env    = "dev"
+  env = "dev"
 
   vpc_id = module.vpc.vpc_id
 }
@@ -49,7 +51,7 @@ module "security_groups" {
 module "kms" {
   source = "../../infra-modules/kms"
 
-  env = "dev"
+  env        = "dev"
   account_id = "d125788629837"
 
 }
@@ -72,29 +74,29 @@ module "kops_s3" {
 
   env = "dev"
 
-  account_id = "d125788629837"
-  region     = "ap-south-1"
+  account_id  = "d125788629837"
+  region      = "ap-south-1"
   kms_key_arn = module.kms.kms_key_arn
 }
 
-# module "dns" {
-#   source = "../../infra-modules/dns"
+module "dns" {
+  source = "../../infra-modules/dns"
 
-#   env = "dev"
+  env = "dev"
 
-#   domain_name = "corp.example.internal"
+  domain_name = "corp.example.internal"
 
-#   vpc_id = module.vpc.vpc_id
-# }
+  vpc_id = module.vpc.vpc_id
+}
 
 
-# module "kops_oidc" {
-#   source = "../../infra-modules/kops-oidc"
+module "kops_oidc" {
+  source = "../../infra-modules/kops-oidc"
 
-#   env = "dev"
+  env = "dev"
 
-#   cluster_name = var.cluster_name
-# }
+  cluster_name = var.cluster_name
+}
 
 # Temporary: Comment out to avoid OIDC creation before cluster exists
 # Uncomment after kOps cluster creation

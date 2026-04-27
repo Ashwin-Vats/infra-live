@@ -1,0 +1,68 @@
+AWS Infrastructure Topology
+==========================
+
+Environment: dev/stage/prod (per environment)
+
++-------------------+     +-------------------+
+|   Internet Gateway |     |   NAT Gateway     |
+|                   |     |  (3 per env)      |
++-------------------+     +-------------------+
+          |                           |
+          |                           |
++-------------------+     +-------------------+
+| Public Subnets    |     | Private Subnets   |
+| (ALBs/NLBs)       |     | (Nodes)           |
+| 10.x.1.0/24      |     | 10.x.11.0/24     |
+| 10.x.2.0/24      |     | 10.x.12.0/24     |
+| 10.x.3.0/24      |     | 10.x.13.0/24     |
++-------------------+     +-------------------+
+          |                           |
+          +---------------------------+
+                      |
+            +-------------------+
+            |       VPC         |
+            | 10.x.0.0/16      |
+            +-------------------+
+                      |
+            +-------------------+
+            | Route53 Private   |
+            | Hosted Zone      |
+            | corp.example.int |
+            +-------------------+
+                      |
+            +-------------------+
+            |     KMS Key       |
+            | (Secrets Encrypt) |
+            +-------------------+
+                      |
+            +-------------------+
+            |   OIDC Provider   |
+            | (IRSA for k8s)   |
+            +-------------------+
+                      |
+            +-------------------+
+            |   IAM Roles       |
+            | - external-dns    |
+            | - cert-manager    |
+            | - cluster-autoscaler|
+            | - argocd-repo-server|
+            +-------------------+
+                      |
+            +-------------------+
+            |   S3 Backend      |
+            | + DynamoDB Lock  |
+            | (Terraform State)|
+            +-------------------+
+
+Kubernetes Cluster (kOps):
+- 3 Master nodes (HA, multi-AZ)
+- 3+ Worker nodes (spot + on-demand)
+- Private topology
+- Bastion host for access
+- Calico/Cilium CNI
+- Cluster Autoscaler
+- Metrics Server
+- NGINX Ingress + AWS Load Balancer Controller
+- External DNS (IRSA)
+- Cert-Manager (ACME)
+- Sealed Secrets / External Secrets
