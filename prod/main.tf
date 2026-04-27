@@ -90,10 +90,10 @@ module "dns" {
 }
 
 
-module "kops_oidc" {
-  source = "../../infra-modules/kops-oidc"
+# module "kops_oidc" {
+#   source = "../../infra-modules/kops-oidc"
 
-  env = "prod"
+#   env = "prod"
 
-  cluster_name = var.cluster_name
-}
+#   cluster_name = var.cluster_name
+# }

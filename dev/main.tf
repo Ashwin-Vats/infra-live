@@ -90,13 +90,13 @@ module "dns" {
 }
 
 
-module "kops_oidc" {
-  source = "../../infra-modules/kops-oidc"
+# module "kops_oidc" {
+#   source = "../../infra-modules/kops-oidc"
 
-  env = "dev"
+#   env = "dev"
 
-  cluster_name = var.cluster_name
-}
+#   cluster_name = var.cluster_name
+# }
 
 # Temporary: Comment out to avoid OIDC creation before cluster exists
 # Uncomment after kOps cluster creation
